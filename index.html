@@ -3,11 +3,12 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="/Users/sorodidiouf/node_modules/moment/moment.js"></script>
   </head>
   <body>
     <button id="tweet">Add tweets</button>
     <!-- <div><input>Enter Username</input></div> -->
-    <ol></ol>
+    <input></input>
     <script>
       $(document).ready(function(){
         var $body = $('body');
@@ -19,17 +20,16 @@
           $tweet.appendTo($body);
           index -= 1;
         }*/
-        var index=Math.floor(Math.random()*streams.home.length-1)
-        // for (let index=streams.home.length-1; index>0; index--)
-        var tweet = streams.home[index];
-        var $tweet = $('<ul></ul>');
-        $tweet.css("background-color","#ADD8E6").css("border-style","solid").css("border-width","auto").text(tweet.created_at+'@' + tweet.user + ': ' + tweet.message).css("color","#0000FF");
-        $("button").click(function(){
-          $("ol").append($tweet)
-        })
-          // $tweet.appendTo($body);
-      });
-
+          $("button").click(function(){
+            let index=Math.floor(Math.random()*streams.home.length-1)
+            var tweet = streams.home[index];
+            var $tweet = $('<div></div>');
+            console.log(moment().startOf('hour').fromNow())
+            let date=moment().startOf('hour').fromNow()
+            $tweet.css("background-color","#ADD8E6").css("border-style","solid").css("border-width","auto").text('@' + tweet.user + ': ' + tweet.message+' '+date).css("color","#0000FF");
+            $($body).append($tweet)
+          })
+        });
     </script>
   </body>
 </html>

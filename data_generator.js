@@ -67,3 +67,7 @@ var writeTweet = function(message){
   tweet.message = message;
   addTweet(tweet);
 };
+
+// use moment.js for relative time
+var moment=require("moment")
+console.log(moment().startOf('hour').fromNow())
