@@ -8,32 +8,32 @@
   </head>
   <body>
     <header>Twiddler</header>
-    <button id="tweet">Add tweets</button>
+    <span>
+      <button id="tweet">Add tweets</button>
+      <form>
+          <input type="text">
+          <input type="submit">Filter by username</input>
+      </form>
+    </span>
     <!-- <div><input>Enter Username</input></div> -->
-    <input></input>
     <script>
       $(document).ready(function(){
+        $("#tweet").css({"display":"inline-block","margin-left":"15px"})
+        $("form").css({"display":"inline-block", "margin-left":"1000px"})
         $("header").css({"text-align":"center","color":"blue", "font-size":"50px"})
         var $body = $('body');
-        /*var index = streams.home.length - 1;
-        while(index >= 0){
+        $("button").click(function(){
+          let index=Math.floor(Math.random()*streams.home.length-1)
           var tweet = streams.home[index];
+          console.log(tweet)
+          var username=tweet.user
           var $tweet = $('<div></div>');
-          $tweet.css("background-color","#ADD8E6").css("border-style","solid").css("border-width","auto").text(tweet.created_at+'@' + tweet.user + ': ' + tweet.message).css("color","#0000FF");
-          $tweet.appendTo($body);
-          index -= 1;
-        }*/
-          $("button").click(function(){
-            let index=Math.floor(Math.random()*streams.home.length-1)
-            var tweet = streams.home[index];
-            var username=tweet.user
-            var $tweet = $('<div></div>');
-            var $username=$('<button></button>')
-            let date=moment().startOf('hour').fromNow()
-            $tweet.css({"background-color":"#ADD8E6","border-style":"solid","border-width":"auto", "color":"#0000FF"}).text('@' + username + ': ' + tweet.message+' '+date)
-            $($body).append($tweet)
-          })
-        });
+          var $username=$('<button></button>')
+          let date=moment().startOf('hour').fromNow()
+          $tweet.css({"background-color":"#ADD8E6","border-style":"solid","border-width":"auto", "color":"#0000FF"}).text('@' + username + ': ' + tweet.message+' '+date)
+          $($body).append($tweet)
+        })
+      });
     </script>
   </body>
 </html>
