@@ -23,7 +23,6 @@
         $("#button1").click(function(){
           let index=Math.floor(Math.random()*streams.home.length-1)
           var tweet = streams.home[index];
-          console.log(tweet)
           var username=tweet.user
           var $tweet = $('<div></div>');
           let date=moment().startOf('hour').fromNow()
