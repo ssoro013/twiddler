@@ -9,30 +9,37 @@
   <body>
     <header>Twiddler</header>
     <span>
-      <button id="tweet">Add tweets</button>
-      <form>
-          <input id="input1" type="text">
-          <input id="input2" type="submit">Filter by username</input>
-      </form>
+      <button id="button1">Add tweets</button>
+      <div>Username: <input id="username" type="text" name=""username>
+        <form id="submit" method="GET" action=""></form>
+      </div>
     </span>
-    <!-- <div><input>Enter Username</input></div> -->
     <script>
       $(document).ready(function(){
-        $("#tweet").css({"display":"inline-block","margin-left":"15px"})
         $("form").css({"display":"inline-block", "margin-left":"1000px"})
         $("header").css({"text-align":"center","color":"blue", "font-size":"50px"})
         var $body = $('body');
-        $("button").click(function(){
+        $("#button1").click(function(){
           let index=Math.floor(Math.random()*streams.home.length-1)
           var tweet = streams.home[index];
           console.log(tweet)
           var username=tweet.user
           var $tweet = $('<div></div>');
-          var $username=$('<button></button>')
           let date=moment().startOf('hour').fromNow()
           $tweet.css({"background-color":"#ADD8E6","border-style":"solid","border-width":"auto", "color":"#0000FF"}).text('@' + username + ': ' + tweet.message+' '+date)
           $($body).append($tweet)
         })
+        
+        var $textbox = $("<input id='textbox' placeholder='What is on your mind...' '></input>");
+        $textbox.appendTo('#submit')
+        var $submitButton = $("<input type='button' value='Tweet!'>")
+        $submitButton.insertAfter($textbox);
+        $submitButton.on('click', function(){
+          var $newTweet = $('<div class=tweet></div>');
+          var date=moment().startOf('hour').fromNow()
+          $newTweet.css({"background-color":"#ADD8E6","border-style":"solid","border-width":"auto", "color":"#0000FF"}).text('@' + $('#username').val()+': '+$('#textbox').val()+' '+date)
+          $($body).append($newTweet)
+        });
       });
     </script>
   </body>
