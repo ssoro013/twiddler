@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="jquery.js"></script>
-    <script src="data_generator.js"></script>
-    <script src="moment.js"></script>
-    
-    <title>Twiddler</title>
+      <script src="jquery.js"></script>
+      <script src="data_generator.js"></script>
+      <script src="moment.js"></script>        
+      <title>Twiddler</title>
   </head>
   <body>
     <header>Twiddler</header>
@@ -15,6 +14,7 @@
         <form id="submit" method="GET" action=""></form>
       </div>
     </span>
+    
     <script>
       $(document).ready(function(){
         $("form").css({"display":"inline-block", "margin-left":"1000px"})
@@ -22,25 +22,35 @@
         var $body = $('body');
         $("#button1").click(function(){
           let index=Math.floor(Math.random()*streams.home.length-1)
-          var tweet = streams.home[index];
-          var username=tweet.user
-          var $tweet = $('<div></div>');
-          let date=moment().startOf('hour').fromNow()
-          $tweet.css({"background-color":"#ADD8E6","border-style":"solid","border-width":"auto", "color":"#0000FF"}).text('@' + username + ': ' + tweet.message+' '+date)
-          $($body).append($tweet)
+          var tweet=streams.home[index];
+          var $tweet=$('<div class=tweet></div>')
+          var $user = $('<p class=user></p>')
+          var $message = $('<p class=message></p>')
+          var $time = $('<span class=time></span>')
+          let time=moment().startOf('hour').fromNow()
+          $tweet.appendTo($body);
+          $user.text('@' + tweet.user + ' ').css({'color':'blue'}).appendTo($tweet);
+          $message.text(tweet.message).appendTo($tweet);
+          $time.text(` ${time}`).appendTo($message);
         })
-        
+
         var $textbox = $("<input id='textbox' placeholder='What is on your mind...' '></input>");
         $textbox.appendTo('#submit')
         var $submitButton = $("<input type='button' value='Tweet!'>")
         $submitButton.insertAfter($textbox);
         $submitButton.on('click', function(){
           var $newTweet = $('<div class=tweet></div>');
-          var date=moment().startOf('hour').fromNow()
-          $newTweet.css({"background-color":"#ADD8E6","border-style":"solid","border-width":"auto", "color":"#0000FF"}).text('@' + $('#username').val()+': '+$('#textbox').val()+' '+date)
-          $($body).append($newTweet)
+          var $newUser = $('<p class=user></p>')
+          var $newMessage = $('<p class=message></p>')
+          var $newTime = $('<span class=time></span>')
+          let time=moment().startOf('hour').fromNow()
+          $newTweet.appendTo($body)
+          $newUser.text(`@${$('#username').val()}`).css({'color':'blue'}).appendTo($newTweet)
+          $newMessage.text($('#textbox').val()).appendTo($newTweet)
+          $newTime.text(time).appendTo($message)
         });
-      });
+
+      });    
     </script>
   </body>
 </html>
