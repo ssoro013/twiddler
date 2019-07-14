@@ -56,8 +56,6 @@
         $('.tweets').on('click', '.user', function(event){
           event.preventDefault();
           var user = $(this).attr('user')
-          console.log($(this))
-          console.log(user);
           $('.tweet').not("div:contains('" + user + "')").hide(400);
           $("div:contains('" + user + "')").show(400);
         });
