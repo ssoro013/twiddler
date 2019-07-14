@@ -26,7 +26,7 @@
           let index=Math.floor(Math.random()*streams.home.length-1)
           var tweet=streams.home[index];
           var $tweet=$('<div class=tweet></div>')
-          var $user = $('<p class=user></p>')
+          var $user = $(`<p class="user" user="${tweet.user}"></p>`)
           var $message = $('<p class=message></p>')
           var $time = $('<span class=time></span>')
           let time=moment().startOf('hour').fromNow()
@@ -53,9 +53,11 @@
           $newTime.text(` ${newTime}`).appendTo($newMessage)
         });
 
-        $('.tweets').on('click', '.tweet .user', function(event){
+        $('.tweets').on('click', '.user', function(event){
           event.preventDefault();
-          var user = $(this).data('.user');
+          var user = $(this).attr('user')
+          console.log($(this))
+          console.log(user);
           $('.tweet').not("div:contains('" + user + "')").hide(400);
           $("div:contains('" + user + "')").show(400);
         });
