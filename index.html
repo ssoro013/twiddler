@@ -3,7 +3,8 @@
   <head>
       <script src="jquery.js"></script>
       <script src="data_generator.js"></script>
-      <script src="moment.js"></script>        
+      <script src="moment.js"></script>  
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js"></script>      
       <title>Twiddler</title>
   </head>
   <body>
@@ -14,12 +15,13 @@
         <form id="submit" method="GET" action=""></form>
       </div>
     </span>
-    
+    <span class="tweets"></span>
     <script>
       $(document).ready(function(){
         $("form").css({"display":"inline-block", "margin-left":"1000px"})
         $("header").css({"text-align":"center","color":"blue", "font-size":"50px"})
         var $body = $('body');
+        var $tweets = $('.tweets')
         $("#button1").click(function(){
           let index=Math.floor(Math.random()*streams.home.length-1)
           var tweet=streams.home[index];
@@ -28,8 +30,9 @@
           var $message = $('<p class=message></p>')
           var $time = $('<span class=time></span>')
           let time=moment().startOf('hour').fromNow()
-          $tweet.appendTo($body);
-          $user.text('@' + tweet.user + ' ').css({'color':'blue'}).appendTo($tweet);
+          $tweet.appendTo($tweets);
+          $user.text('@' + tweet.user + ' ').css({'color':'blue','text-decoration':'underline', 'cursor': 'pointer'})
+          $user.appendTo($tweet);
           $message.text(tweet.message).appendTo($tweet);
           $time.text(` ${time}`).appendTo($message);
         })
@@ -43,11 +46,18 @@
           var $newUser = $('<p class=user></p>')
           var $newMessage = $('<p class=message></p>')
           var $newTime = $('<span class=time></span>')
-          let time=moment().startOf('hour').fromNow()
-          $newTweet.appendTo($body)
-          $newUser.text(`@${$('#username').val()}`).css({'color':'blue'}).appendTo($newTweet)
+          let newTime=moment().startOf('hour').fromNow()
+          $newTweet.appendTo($tweets)
+          $newUser.text(`@${$('#username').val()}`).css({'color':'blue','text-decoration':'underline', 'cursor': 'pointer'}).appendTo($newTweet)
           $newMessage.text($('#textbox').val()).appendTo($newTweet)
-          $newTime.text(time).appendTo($message)
+          $newTime.text(` ${newTime}`).appendTo($newMessage)
+        });
+
+        $('.tweets').on('click', '.tweet .user', function(event){
+          event.preventDefault();
+          var user = $(this).data('.user');
+          $('.tweet').not("div:contains('" + user + "')").hide(400);
+          $("div:contains('" + user + "')").show(400);
         });
 
       });    
